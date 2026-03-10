@@ -1,4 +1,4 @@
-import { RouterProvider } from 'react-router';
+import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
 import { SpeechProvider } from './contexts/SpeechContext';
 import { ThemeProvider } from './contexts/ThemeContext';
