@@ -2,8 +2,6 @@ import { Link, useLocation } from 'react-router';
 import { useTheme } from '../contexts/ThemeContext';
 import { HelpCircle, AlertTriangle, MessageSquare, Heart, Lightbulb } from 'lucide-react';
 import svgPaths from '../../imports/svg-28f0pdh38j';
-import imgMoonSymbol from 'figma:asset/147898b24005273b9940e3f5b39d335ba596bd42.png';
-import imgSun from 'figma:asset/7d8961533625706a2fd0e7b20150078c4f8f040c.png';
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
