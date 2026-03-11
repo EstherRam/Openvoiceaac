@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import SpeechBar from './SpeechBar';
 import { useTheme } from '../contexts/ThemeContext';
@@ -6,7 +6,7 @@ import { useTheme } from '../contexts/ThemeContext';
 export default function Layout() {
   const { theme } = useTheme();
   const location = useLocation();
-  
+
   // Only show speech bar on sentence building page
   const showSpeechBar = location.pathname === '/';
 
