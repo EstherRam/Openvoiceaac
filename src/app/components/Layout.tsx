@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router";
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from "./Header";
 import SpeechBar from "./SpeechBar";
 import { ThemeProvider, useTheme } from "../contexts/ThemeContext";
