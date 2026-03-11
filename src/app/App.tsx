@@ -11,7 +11,7 @@ function App() {
       <CustomWordsProvider>
         <HiddenWordsProvider>
           <SpeechProvider>
-            <RouterProvider router={router} />
+            <RouterProvider router={router} basename="/Openvoiceaac" />
           </SpeechProvider>
         </HiddenWordsProvider>
       </CustomWordsProvider>
