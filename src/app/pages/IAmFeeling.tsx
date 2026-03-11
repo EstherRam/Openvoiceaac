@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
-import VocabularyTile from '../components/VocabularyTile';
-import AddWordModal from '../components/AddWordModal';
+import { useState, useEffect } from "react";
+import { Plus } from "lucide-react";
+import VocabularyTile from "../components/VocabularyTile";
+import AddWordModal from "../components/AddWordModal";
 
 interface CustomWord {
   id: string;
@@ -10,10 +10,10 @@ interface CustomWord {
 }
 
 const defaultWords = [
-  'happy', 'sad', 'angry', 'scared', 'tired', 'excited',
-  'worried', 'calm', 'proud', 'silly', 'frustrated', 'lonely',
-  'loved', 'brave', 'confused', 'bored', 'grateful', 'hopeful',
-  'nervous', 'peaceful'
+  "happy","sad","angry","scared","tired","excited",
+  "worried","calm","proud","silly","frustrated","lonely",
+  "loved","brave","confused","bored","grateful","hopeful",
+  "nervous","peaceful"
 ];
 
 export default function IAmFeeling() {
@@ -22,32 +22,27 @@ export default function IAmFeeling() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWord, setEditingWord] = useState<CustomWord | null>(null);
 
-  // Load hidden words and custom words from localStorage
   useEffect(() => {
-    const hidden = localStorage.getItem('hiddenFeelingsWords');
-    if (hidden) {
-      setHiddenWords(JSON.parse(hidden));
-    }
+    const hidden = localStorage.getItem("hiddenFeelingsWords");
+    if (hidden) setHiddenWords(JSON.parse(hidden));
 
-    const custom = localStorage.getItem('customFeelingsWords');
-    if (custom) {
-      setCustomWords(JSON.parse(custom));
-    }
+    const custom = localStorage.getItem("customFeelingsWords");
+    if (custom) setCustomWords(JSON.parse(custom));
   }, []);
 
   const handleHideWord = (word: string) => {
     const updated = [...hiddenWords, word];
     setHiddenWords(updated);
-    localStorage.setItem('hiddenFeelingsWords', JSON.stringify(updated));
+    localStorage.setItem("hiddenFeelingsWords", JSON.stringify(updated));
   };
 
   const handleAddWord = (text: string, color: string) => {
     if (editingWord) {
-      const updated = customWords.map(w => 
+      const updated = customWords.map((w) =>
         w.id === editingWord.id ? { ...w, text, color } : w
       );
       setCustomWords(updated);
-      localStorage.setItem('customFeelingsWords', JSON.stringify(updated));
+      localStorage.setItem("customFeelingsWords", JSON.stringify(updated));
       setEditingWord(null);
     } else {
       const newWord: CustomWord = {
@@ -55,9 +50,10 @@ export default function IAmFeeling() {
         text,
         color
       };
+
       const updated = [...customWords, newWord];
       setCustomWords(updated);
-      localStorage.setItem('customFeelingsWords', JSON.stringify(updated));
+      localStorage.setItem("customFeelingsWords", JSON.stringify(updated));
     }
   };
 
@@ -67,28 +63,32 @@ export default function IAmFeeling() {
   };
 
   const handleDeleteCustomWord = (id: string) => {
-    const updated = customWords.filter(w => w.id !== id);
+    const updated = customWords.filter((w) => w.id !== id);
     setCustomWords(updated);
-    localStorage.setItem('customFeelingsWords', JSON.stringify(updated));
+    localStorage.setItem("customFeelingsWords", JSON.stringify(updated));
   };
 
   const handleWordClick = (word: string) => {
-    // Speak "I am feeling [word]" immediately
     const utterance = new SpeechSynthesisUtterance(`I am feeling ${word}`);
-    window.speechSynthesis.cancel(); // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
   };
 
-  const visibleDefaultWords = defaultWords.filter(word => !hiddenWords.includes(word));
+  const visibleDefaultWords = defaultWords.filter(
+    (word) => !hiddenWords.includes(word)
+  );
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-8">
-      <div className="grid grid-cols-5 gap-4">
+    <div className="px-[21px] pb-[40px] pt-6">
+
+      {/* GRID */}
+      <div className="grid grid-cols-3 md:grid-cols-5 gap-[10px]">
+
         {visibleDefaultWords.map((word) => (
           <VocabularyTile
             key={word}
             text={word}
-            color="#E91E8C"
+            color="#c91d5d"
             onLongPress={() => handleHideWord(word)}
             onClick={() => handleWordClick(word)}
           />
@@ -106,17 +106,33 @@ export default function IAmFeeling() {
           />
         ))}
 
-        {/* Add More Tile */}
+        {/* ADD TILE */}
         <button
           onClick={() => {
             setEditingWord(null);
             setIsModalOpen(true);
           }}
-          className="aspect-square rounded-3xl border-4 border-dashed border-gray-400 hover:border-gray-600 transition-colors flex flex-col items-center justify-center gap-2 bg-transparent"
+          className="
+          w-full
+          aspect-[136/164]
+          rounded-xl
+          border-2
+          border-dashed
+          border-gray-500
+          hover:border-gray-300
+          transition
+          flex
+          flex-col
+          items-center
+          justify-center
+          gap-3
+          text-gray-400
+          "
         >
-          <Plus className="w-12 h-12 text-gray-400" />
-          <span className="text-gray-600 text-lg font-medium">Add More</span>
+          <Plus className="w-10 h-10" />
+          <span className="text-[16px] font-medium">Add More</span>
         </button>
+
       </div>
 
       <AddWordModal
@@ -128,7 +144,7 @@ export default function IAmFeeling() {
         onSave={handleAddWord}
         initialText={editingWord?.text}
         initialColor={editingWord?.color}
-        title={editingWord ? 'Edit Word' : 'Add New Word'}
+        title={editingWord ? "Edit Word" : "Add New Word"}
       />
     </div>
   );
