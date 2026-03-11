@@ -105,7 +105,6 @@ export default function IWant() {
           />
         ))}
 
-        {/* ADD MORE TILE */}
         <button
           onClick={() => {
             setEditingWord(null);
